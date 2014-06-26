@@ -1,0 +1,52 @@
+<h1>Gallery</h1>
+
+<script pi="a/Source" name="crop/edit" type="text/x-dot">
+   <button pi="a/Button" msg="parent@face" class="btn btn-danger">Save</button>
+   <button pi="a/Button" msg=".image-show@save/new" class="btn">Save as New</button>
+   <button pi="a/Button" msg="parent@cancel" class="btn">Cancel</button>
+</script>
+
+<script pi="a/Source" name="image/edit" type="text/x-dot">
+<div title="Image">
+   <div pi="a/Toggle" style="margin-bottom: 10px" target=".image-show" face="crop" back="save" alter="crop/edit">
+      <button pi="a/Button" msg="parent@back" class="btn">Crop</button>
+      <button pi="a/Button" msg=".editor-dialog@close" class="btn">Cancel</button>
+   </div>
+   <img class="image-show" pi="a/Image" uri="/image/save" save=".editor-dialog@close .image-list@update .image-view@reload" new=".image-list@update" src="{{! it.uri }}" data-id="{{! it.id }}" width="{{! it.width }}" height="{{! it.height }}">
+</div>
+</script>
+
+<script pi="a/Source" name="image/row" type="text/x-dot">
+<span>
+<a href="#" pi="a/Button" msg=".image-view@update" data-uri="/file/get/{{! it.o.id }}" data-id="{{! it.o.id }}"><img class="image-thumb" src="/image/scale/48/{{! it.o.id }}{{? it.ts }}?{{! it.ts }}{{?}}" alt="{{! it.o.name }}"></a>
+</span>
+</script>
+
+<script pi="a/Source" name="image/view" type="text/x-dot">
+<div style="margin-top: 15px">
+   <button pi="Editor/Dialog" name="image/edit" class="btn editor-dialog" data-id="{{! it.id }}" data-uri="{{! it.uri }}" ref="#preview">Edit</button>
+   <button pi="a/Button" msg=".ckeditor@image/select" data-uri="{{! it.uri }}" class="btn">Select</button>
+   <button pi="a/Button" msg=".image-view@cancel" class="btn">Cancel</button>
+   <button pi="a/Button" msg=".image-list@file/delete .image-view@cancel" data-id="{{! it.id }}" class="btn-danger btn">Delete</button>
+</div>
+<div style="margin-top: 15px">
+   <img id="preview" src="{{! it.uri }}" class="img-polaroid">
+</div>
+</script>
+
+<div class="row">
+   <div class="span4">
+      <button class="btn" pi="a/Button" msg=".image-list@update">Обновить</button>
+      <span pi="a/Template" name="h-file" data-uri="/image/upload" data-msg=".image-list@update"></span>
+      <p>
+      <div pi="a/File/List" prefix="/image" row="image/row" class="image-list"></div>
+
+      <div pi="Editor" class="image-view" name="image/view"></div>
+   </div>
+   <div class="span8">
+      <div pi="a/Toggle" target=".ckeditor" face="edit" back="save" alter="page/edit">
+         <button pi="a/Button" msg="parent@back" class="btn">Edit</button>
+      </div>
+      <div class="ckeditor" pi="a/El/CK" cms="cms" get uri="text/sandbox" style="margin-top: 10px"></div>
+   </div>
+</div>

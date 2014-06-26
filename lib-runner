@@ -1,0 +1,50 @@
+#!/bin/bash
+PROCESS=$1
+if [ "$PROCESS" == "" ]; then
+   echo "Usage: $0 process_runner"
+   exit
+fi
+
+WATCH="lib/"
+for SYMLINK in `find lib/ -type l`
+do
+   REF=lib/`readlink $SYMLINK`
+   WATCH="${WATCH} $REF"
+done
+echo WATCH: $WATCH
+
+function on_exit()
+{
+   PID=`cat /dev/shm/lib-runner-pid`
+   echo on exit kill main:$PID coffee:$COFFEE_PID tail: $TAIL_PID
+   kill -ILL $COFFEE_PID >/dev/null 2>&1
+   kill -ILL $TAIL_PID >/dev/null 2>&1
+   kill -INT $PID >/dev/null 2>&1
+   exit 0
+}
+
+trap on_exit SIGINT SIGTERM EXIT
+
+./make-coffee &
+COFFEE_PID=$!
+tail -f logs/deployment.log &
+TAIL_PID=$!
+$PROCESS &
+echo $! > /dev/shm/lib-runner-pid
+echo running $! $PROCESS
+
+while true
+do
+   inotifywait -m -q -e modify -r $WATCH | while read P E F
+   do
+      if [[ "$F" = *.pm ]] ; then
+         PID=`cat /dev/shm/lib-runner-pid`
+         echo `date +'%Y-%m-%d %H:%M:%S'` $P $E $F kill $PID
+         kill -TERM $PID
+         $PROCESS &
+         echo $! > /dev/shm/lib-runner-pid
+         echo new pid $!
+      fi
+   done
+done
+

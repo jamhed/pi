@@ -1,0 +1,4 @@
+#!/bin/sh
+NAME=`ls *.psgi`
+echo Run: $NAME
+./lib-runner "starman --port 3000 --workers 10 $NAME"

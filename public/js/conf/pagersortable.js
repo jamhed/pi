@@ -1,0 +1,3 @@
+define({
+   distance: 20
+});

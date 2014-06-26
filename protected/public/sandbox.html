@@ -1,0 +1,25 @@
+<h1>Sandbox 1</h1>
+
+<div id="table1" pi="Table" uri="currency/table"></div>
+<div id="table2" pi="Table" uri="currency/table"></div>
+
+<button class="btn" pi="Button" target="#table1@load #table2@load">Reset</button> 
+
+<script pi="a/Include" uri="sandbox-tmpl" type="text/x-dot" get></script>
+
+<script pi="a/Source" name="table/tmpl/row" type="text/x-dot">
+<tr>
+   <td>
+      {{! it.stamp }}
+   </td>
+   <td>
+      {{! it.symbol }}
+   </td>
+   <td>
+      {{! it.amount }}
+   </td>
+</tr>
+</script>
+
+<div pi="a/Template" name="table/tmpl" data-id="table1"></div>
+<div pi="a/Template" name="table/tmpl" data-id="table2"></div>

@@ -1,0 +1,7 @@
+appdir: './'
+charset: "UTF-8"
+
+logger: "file"
+log: "debug"
+logger_format: "%t %h %m"
+show_errors: 1

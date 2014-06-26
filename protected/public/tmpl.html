@@ -1,0 +1,93 @@
+<script name="page/edit" pi="a/Source" type="text/x-dot">
+<div style="margin-bottom: 10px">
+   <button pi="a/Button" msg="parent@face" class="btn btn-danger">Save</button>
+   <button pi="a/Button" msg="parent@cancel" class="btn">Cancel</button>
+</div>
+</script>
+
+<script name="source/code" pi="a/Source" type="text/x-dot">
+<div class="row-fluid">
+   <div class="span7">
+      <h4>{{= it.o.data.source }}</h4>
+      <div pi="a/Toggle" target=".source" face="edit" back="save" alter="page/edit">
+         <button pi="a/Button" msg="parent@back" class="btn">Edit</button>
+      </div>
+      <h4></h4>
+      <div pi="a/El/Code" get {{? it.o.data.syntax }}syntax="{{! it.o.data.syntax }}"{{?}} uri="{{= it.o.data.source }}" cms="{{= it.o.data.cms }}" class="source"></div>
+   </div>
+   <div class="span5">
+      <h4>{{= it.o.data.doc }}</h4>
+      <div pi="a/Toggle" target=".doc" face="edit" back="save" alter="page/edit">
+         <button pi="a/Button" msg="parent@back" class="btn">Edit</button>
+      </div>
+      <h4></h4>
+      <div pi="a/El/Markdown" get uri="{{= it.o.data.doc }}" cms="{{= it.o.data.cms }}" class="doc"></div>
+   </div>
+</div>
+<hr>
+</script>
+
+<script pi="a/Source" name="h-input" type="text/x-dot">
+<label class="control-label">{{! it.o.data.fname }}:</label>
+<div class="controls">
+   <input class="form {{! it.o.data.width || ''}} {{! it.o.data.class }}" data-group="{{! it.o.data.group || 'form' }}" {{? it.o.data.uri }} pi="a/Typeahead" uri="{{! it.o.data.uri }}" {{?}} type="text" name="{{! it.o.data.name }}" value="{{!it.o.data.value || ''}}">
+</div>
+</script>
+
+<script pi="a/Source" name="h-input-typeahead" type="text/x-dot">
+<label class="control-label">{{! it.o.data.fname }}:</label>
+<div class="controls">
+   <input class="form {{! it.o.data.width }} {{! it.o.data.class }}" pi="a/Typeahead/Pair" uri="{{! it.o.data.uri }}" item="{{! it.o.data.item }}" item_map="{{! it.o.data.item_map }}" type="text" name="{{! it.o.data.name }}" value="{{!it.o.data.value || ''}}" target="{{! it.o.data.target }}">
+</div>
+</script>
+
+<script pi="a/Source" name="h-file" type="text/x-dot">
+<span class="btn fileinput-button">
+   <span>{{! it.o.data.text || "Добавить файлы" }}</span>
+   <input pi="a/File/Upload" type="file" name="{{! it.o.data.name || 'name'}}" multiple uri="{{! it.o.data.uri }}" {{? it.o.data.msg }}msg="{{! it.o.data.msg }}"{{?}}>
+</span>
+</script>
+
+<script pi="a/Source" name="h-checkbox" type="text/x-dot">
+<label class="control-label">
+<div class="controls checkbox">
+   <input class="form" type="checkbox" name="{{! it.o.data.name }}" {{?it.o.data.checked}}checked{{?}}>{{! it.o.data.text }}
+</div>
+</label>
+</script>
+
+<script name="pager/nav" pi="a/Source" type="text/x-dot">
+<ul>
+   <li name="fast-back"><a>««</a></li>
+   <li name="back"><a>«</a></li>
+   <li name="page"><a>{{= it.page }} / {{= it.page_count }}</a></li>
+   <li name="forward"><a>»</a></li>
+   <li name="fast-forward"><a>»»</a></li>
+</ul>
+</script>
+
+<script name="table/caption" pi="a/Source" type="text/x-dot">
+<caption style="padding-bottom: 10px; border-bottom: 1px solid #f3f3f3">
+   <div style="margin-bottom: 10px; border-bottom: 1px solid #f3f3f3">
+      <span class="lead">{{= it.o.data.name }}</span>
+   </div>
+   <div pi="a/Pager/Nav" name="pager/nav" target="closest(table) tbody" class="pagination pagination-centered" style="position: absolute; margin: 0">
+   </div>
+   <div style="height: 25px">
+      <button id="0" pi="a/Pager/Dialog" prefix="{{= it.o.data.prefix }}" msg="closest(table) tbody@reload" class="btn" style="float: right">добавить</button>
+   </div>
+</caption>
+</script>
+
+<script name="table/caption/more" pi="a/Source" type="text/x-dot">
+<caption>
+   <div class="lead">{{= it.o.data.name }}</div>
+   <div style="position: absolute; margin: 0">
+      <button pi="a/Button" msg="closest(table) tbody@more" class="btn">Догрузить</button>
+      Осталось: <span class="page-count" pi="a/OnMessage" init="closest(table) tbody@query"></span>
+   </div>
+   <div style="height: 25px">
+      <button id="0" pi="a/Pager/Dialog" prefix="{{= it.o.data.prefix }}" msg="closest(table) tbody@reload" class="btn" style="float: right">добавить</button>
+   </div>
+</caption>
+</script>

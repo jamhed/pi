@@ -1,0 +1,47 @@
+<div pi="a/El/Markdown">
+# Pi
+  
+Библиотека для сборки сайтов из шаблонов, с трансформациями. Используются amd-модули и require.js,
+вклюючая некоторый ui: показ диалогов, таблиц с листанием, выбор даты, выбор времени, и поле ввода с подсказкой.
+  
+### Архитектура
+  
+  html-элементы помечаются специальным атрибутом pi=[имя]. При загрузке страницы происходит поиск
+  всех таких элементов, и загрузка модулей по имени посредством requirejs. Загруженный модуль,
+  являющийся классом, наследуемым от a/Pi, инстанциируется объектом класса для каждого такого элемента
+  сразу после загрузки.
+  
+### ToDo
+
+* листание pager с догрузкой содержимого
+* отложенные сообщения pub/sub при наличии отсутствия html-элемента цели
+* редактирование html и css-страниц, образующих проект (index.html, style.css)
+* поле для немедленного редактирования (сохранение при потере фокуса)
+* check-box для немедленного редактирования
+* обработка ошибок компиляции (взаимозависимые элементы и события по именам):
+  * отсутствие mSource
+  * отсутствие обработчиков событий pub/sub
+
+### Библиотеки
+  
+  1. [ACE](http://ace.c9.io)
+  2. [Code Mirror](http://codemirror.net)
+  3. [Markdown](https://github.com/evilstreak/markdown-js)
+  4. [Textile](https://github.com/borgar/textile-js)
+  5. [URI.js](http://medialize.github.io/URI.js)
+  6. [jQuery](http://jquery.com) и [jQueryUI](http://jquery-ui.com)
+  7. [RequireJS](http://requirejs.org)
+  8. [Twitter Bootstrap](http://getbootstrap.com)
+  9. [HighLight](http://softwaremaniacs.org/soft/highlight/en)
+  10. [jCrop](http://deepliquid.com/content/Jcrop.html)
+  11. [CKEditor](http://www.ckeditor.com)
+  12. [FileUpload)(https://github.com/blueimp/jQuery-File-Upload/wiki/Options)
+  
+### Ссылки
+
+1. [JS Editors](https://github.com/cheeaun/mooeditable/wiki/Alternative-Javascript-WYSIWYG-editors)
+</div>
+
+<div pi="a/Template" name="source/code" data-source="cs/router.cs" data-doc="cs/t/router.md" data-cms="cms"></div>
+
+<div pi="a/Template" name="source/code" data-source="cs/a/El/Content.cs" data-doc="cs/t/a/El/Content.md" data-cms="cms"></div>

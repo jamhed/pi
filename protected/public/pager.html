@@ -1,0 +1,123 @@
+<div pi="a/El/Markdown">
+# Списки
+  
+  Постраничный вывод списоков с фильтрами. Общение между списком, листанием, фильтрами и сортировками
+  делается через сообщения.
+
+1. Листание по страницам
+2. Сортировка
+3. Фильтры
+</div>
+
+<script name="currency/row" pi="a/Source" type="text/x-dot">
+<tr>
+<td>{{= it.stamp }}</td>
+<td>{{= it.symbol }}</td>
+<td>{{= it.amount }}</td>
+<td><button pi="a/Pager/Dialog" id={{! it. id }} class="btn btn-small" msg="tbody@reload" prefix="currency" data-id="{{! it.id }}">Править</button></td
+</tr>
+</script>
+
+<script name="currency/edit" pi="a/Source" type="text/x-dot">
+<div pi="a/Dialog/Simple" title="Валюта" data-width="500" parent="#{{!it.o.id||"0"}}[prefix='currency']">
+   <form method="POST" class="form-horizontal">
+
+   <div class="control-group">
+      <div pi="a/Template" name="h-input-typeahead" data-uri="currency/complete" data-fname="Символ" data-name="symbol" data-value="{{= it.o.symbol || '' }}"></div>
+      <div pi="a/Template" name="h-input" data-fname="Курс" data-name="amount" data-value="{{= it.o.amount || '' }}"></div>
+   </div>
+   <input class="form user-options" type="hidden" name="id" value="{{! it.o.id }}">
+   
+   <button pi="a/Form" el=".form" msg="parent@save" class="btn">Сохранить</button>
+   {{? it.o.id }}
+   <button pi="a/Button" msg="parent@delete" class="btn" data-id={{! it.o.id }}>Удалить</button>
+   {{?}}
+   
+   </form>
+</div>
+</script>
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#currency" data-toggle="tab">Таблица валют</a></li>
+  <li><a href="#currency-more" data-toggle="tab">Таблица валют</a></li>
+  <li><a href="#doc" data-toggle="tab">Документация</a></li>
+</ul>
+
+<div class="tab-content">
+   <div id="currency" class="tab-pane fade in active">
+      <div class="row-fluid">
+         <div class="span3">
+            <span class="help-block">Символ</span>
+            <input pi="a/Typeahead" uri="/currency/complete" class="filter" type="text" name="symbol">
+         </div>
+         <div class="span3">
+            <span class="help-block">Дата начала</span>
+            <input pi="a/DatePicker" class="filter" type="text" name="date_start">
+         </div>
+         <div class="span3">
+            <span class="help-block">Дата конца</span>
+            <input pi="a/DatePicker" class="filter" type="text" name="date_end">
+         </div>
+         <div class="span2">
+            <span class="help-block">&nbsp;</span>
+            <button pi="a/Form/Local" el=".filter" msg="#currency tbody@filter" class="form-filter btn">Фильтр</button>
+            <button pi="a/Button" msg=".form-filter@reset" class="btn">Очистить</button>
+         </div>
+      </div>
+
+      <table class="table table-striped">
+         <caption pi="a/Template" replace name="table/caption" data-name="Валюты" data-prefix="currency"></caption>
+         <thead>
+            <tr>
+               <th pi="a/Pager/Sorter" name="stamp">Дата</th>
+               <th pi="a/Pager/Sorter" name="symbol">Символ</th>
+               <th pi="a/Pager/Sorter" name="amount">Значение</th>
+            </tr>
+         </thead>
+         <tbody pi="a/Pager" uri="/currency/table" row="currency/row" filter=".form-filter@init" msg=".pagination@pager/load"></tbody>
+      </table>
+   </div>
+
+   <div id="currency-more" class="tab-pane fade in">
+      <div class="row-fluid">
+         <div class="span3">
+            <span class="help-block">Символ</span>
+            <input pi="a/Typeahead" uri="/currency/complete" class="filter-more" type="text" name="symbol">
+         </div>
+         <div class="span3">
+            <span class="help-block">Дата начала</span>
+            <input pi="a/DatePicker" class="filter-more" type="text" name="date_start">
+         </div>
+         <div class="span3">
+            <span class="help-block">Дата конца</span>
+            <input pi="a/DatePicker" class="filter-more" type="text" name="date_end">
+         </div>
+         <div class="span2">
+            <span class="help-block">&nbsp;</span>
+            <button pi="a/Form/Local" el=".filter-more" msg="#currency-more tbody@filter" class="form-filter-more btn">Фильтр</button>
+            <button class="btn" pi="a/Button" msg=".form-filter-more@reset">Очистить</button>
+         </div>
+      </div>
+
+      <table class="table table-striped">
+         <caption pi="a/Template" replace name="table/caption/more" data-name="Валюты" data-prefix="currency"></caption>
+         <thead>
+            <tr>
+               <th pi="a/Pager/Sorter" name="stamp">Дата</th>
+               <th pi="a/Pager/Sorter" name="symbol">Символ</th>
+               <th pi="a/Pager/Sorter" name="amount">Значение</th>
+            </tr>
+         </thead>
+         <tbody pi="a/Pager/More" uri="/currency/table/more" row="currency/row" filter=".form-filter@init" msg=".page-count@set"></tbody>
+      </table>
+   </div>
+
+   <div id="doc" class="tab-pane fade">
+      <div pi="a/Template" name="source/code" data-source="cs/a/Pager.cs" data-doc="cs/t/a/Pager.md" data-cms="cms"></div>
+      <div pi="a/Template" name="source/code" data-source="cs/a/Pager/More.cs" data-doc="cs/t/a/Pager/More.md" data-cms="cms"></div>
+      <div pi="a/Template" name="source/code" data-source="cs/a/Pager/Dialog.cs" data-doc="cs/t/a/Pager/Dialog.md" data-cms="cms"></div>     
+      <div pi="a/Template" name="source/code" data-source="cs/a/Pager/Sortable.cs" data-doc="cs/t/a/Pager/Sortable.md" data-cms="cms"></div>
+      <div pi="a/Template" name="source/code" data-source="cs/a/Pager/Sorter.cs" data-doc="cs/t/a/Pager/Sorter.md" data-cms="cms"></div>
+      <div pi="a/Template" name="source/code" data-source="cs/a/Pager/Nav.cs" data-doc="cs/t/a/Pager/Nav.md" data-cms="cms"></div>
+   </div>
+</div>
