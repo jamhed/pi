@@ -1,4 +1,3 @@
 /logs
-config.yml
-/cache
-supervise
+/config.yml
+/bower_components
