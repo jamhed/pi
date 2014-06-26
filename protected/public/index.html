@@ -19,22 +19,6 @@
             <a class="brand" href="#">Pi</a>
             <div class="nav-collapse">
                <ul class="nav">
-                  <li><a href="#elements">Elements</a></li>
-                  <li><a href="#templates">Templates</a></li>
-                  <li><a href="#editables">Editables</a></li>
-                  <li><a href="#messages">Messages</a></li>
-                  <li><a href="#pager">Pager</a></li>
-                  <li><a href="#forms">Forms</a></li>
-                  <li><a href="#dialog">Dialogs</a></li>
-                  <li><a href="#base">Base</a></li>
-                  <li><a href="#errors">Errors</a></li>
-                  <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">File <b class="caret"></b></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#file">File</a></li>
-                        <li><a href="#image">Image</a></li>
-                     </ul>
-                  </li>
                   <li><a href="#sandbox">Sandbox</a></li>
                </ul>
             </div><!--/.nav-collapse -->
@@ -42,11 +26,7 @@
       </div><!-- navbar inner -->
    </div><!-- navbar -->
 
-   <div pi="a/Toggle" target=".content" face="edit" back="save" alter="page/edit">
-      <button pi="a/Button" msg="parent@back" class="btn">Edit</button>
-   </div>
-
-   <div pi="a/Content/Editable" mode="htmlmixed" class="content" get uri cms="/cms/page"></div>
+   <div pi="Content" class="content" get uri></div>
 
    <footer style="margin-left: 20px">
       <hr>
@@ -57,19 +37,6 @@
    </div>
 
 </div> <!-- /container -->
-
-<div pi="a/AjaxInfo" class="ajax-info"></div>
-
-<script pi="a/AjaxError" type="text/x-dot">
-<div pi="a/Dialog/Simple" title="Ошибка ajax" data-width="1000">
-   <div style="margin-bottom: 10px">
-      <div>{{! it.method }}: {{! it.uri }}</div>
-      <div>Ошибка: {{! it.error }}</div>
-      <div>{{! (it.server_error || it.responseText) }}</div>
-   </div>
-   <button class="btn" pi="a/Button" msg="parent@close">Закрыть</button>
-</div>
-</script>
 
 </body>
 </html>

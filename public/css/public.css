@@ -1,9 +1,5 @@
 @import url("/lib/bootstrap/css/bootstrap.css");
 /* @import url("/lib/bootstrap/css/bootstrap-responsive.css"); */
 @import url("/lib/jquery-ui/css/ui-lightness/jquery-ui-1.10.3.custom.min.css");
-@import url("/lib/highlight/default.min.css");
-@import url("/lib/code-mirror/lib/codemirror.css");
-@import url("/lib/imgarea/css/imgareaselect-default.css");
-@import url("/css/file-upload.css");
 
 @import url("/css/pi.css");
