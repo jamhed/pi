@@ -1,11 +1,9 @@
 <script name="table/nav" pi="a/Source" type="text/x-dot">
-<ul>
-   <li name="fastback" pi="Table/Nav" bind="parent"><a>««</a></li>
-   <li name="back" pi="Table/Nav" bind="parent"><a>«</a></li>
-   <li name="page" pi="Table/Nav" bind="parent"><a>{{= it.pager.page }} / {{= it.pager.page_count }}</a></li>
-   <li name="forward" pi="Table/Nav" bind="parent"><a>»</a></li>
-   <li name="fastforward" pi="Table/Nav" bind="parent"><a>»»</a></li>
-</ul>
+<li name="fastback" pi="Table/Nav" bind="parent"><a>««</a></li>
+<li name="back" pi="Table/Nav" bind="parent"><a>«</a></li>
+<li name="page" pi="Table/Nav" bind="parent"><a>{{= it.pager.page }} / {{= it.pager.page_count }}</a></li>
+<li name="forward" pi="Table/Nav" bind="parent"><a>»</a></li>
+<li name="fastforward" pi="Table/Nav" bind="parent"><a>»»</a></li>
 </script>
 
 <script pi="a/Source" name="table/tmpl" type="text/x-dot">
@@ -15,7 +13,7 @@
       <div class="title">
          <span class="lead">Валюты</span>
       </div>
-      <div pi="Table/Pager" name="table/nav" bind="#{{!it.o.data.id}}" class="pagination pagination-centered"></div>
+      <ul pi="Table/Pager" name="table/nav" bind="#{{!it.o.data.id}}" class="pagination pagination-centered"></ul
       <div style="height: 25px">
          <button pi="Button" target="#{{!it.o.data.id}}@load" class="btn" style="float: right">добавить</button>
       </div>

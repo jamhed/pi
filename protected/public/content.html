@@ -1,11 +1,13 @@
-<h1>Sandbox 1</h1>
+<div class="page-header">
+   <h1>Sandbox</h1>
+</div>
 
 <div id="table1" pi="Table" uri="currency/table"></div>
 <div id="table2" pi="Table" uri="currency/table"></div>
 
 <button class="btn" pi="Button" target="#table1@load #table2@load">Reset</button> 
 
-<script pi="a/Include" uri="sandbox-tmpl" type="text/x-dot" get></script>
+<script pi="a/Include" uri="tmpl" type="text/x-dot" get></script>
 
 <script pi="a/Source" name="table/tmpl/row" type="text/x-dot">
 <tr>
