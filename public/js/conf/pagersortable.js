@@ -1,3 +1,0 @@
-define({
-   distance: 20
-});

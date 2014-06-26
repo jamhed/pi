@@ -1,1 +1,0 @@
-CodeMirror/Highlight редактор кода
