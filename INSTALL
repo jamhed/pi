@@ -1,0 +1,13 @@
+# Perl
+
+curl -L http://cpanmin.us | perl - App::cpanminus
+cpanm Dancer
+cpanm Starman
+
+# Node
+
+npm -g install coffee-script
+npm -g install bower
+
+# System
+apt-get install inotify-tools
