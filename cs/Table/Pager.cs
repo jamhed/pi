@@ -13,10 +13,13 @@ define ["a/Pi"], (aPi) -> class TablePager extends aPi
       @rpc_to @a.bind, "get_r", [], (rs) => if rs then @set rs
 
    set_page_to_uri: ->
+      old_uri = @rt.uri.search()
       p = @rt.uri.search true
       p[@key] = 1 + @page
       @rt.uri.search p
-      @rt.set_uri_without_event @rt.uri
+      new_uri = @rt.uri.search()
+      if old_uri != new_uri
+         @rt.set_uri_without_event @rt.uri
 
    notify: ->
       @rpc_to @a.bind, "page", [@page], (->)
@@ -27,12 +30,10 @@ define ["a/Pi"], (aPi) -> class TablePager extends aPi
    forward: (n) ->
       @page = if @page + n >= @page_count then @page_count-1 else @page + n
       @set_page_to_uri()
-      @notify()
 
    backward: (n) ->
       @page = if @page - n < 0 then 0 else @page - n
       @set_page_to_uri()
-      @notify()
 
    nav: (name) ->
       switch name

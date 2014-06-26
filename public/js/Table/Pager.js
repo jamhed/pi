@@ -40,11 +40,15 @@ define(["a/Pi"], function(aPi) {
     };
 
     TablePager.prototype.set_page_to_uri = function() {
-      var p;
+      var new_uri, old_uri, p;
+      old_uri = this.rt.uri.search();
       p = this.rt.uri.search(true);
       p[this.key] = 1 + this.page;
       this.rt.uri.search(p);
-      return this.rt.set_uri_without_event(this.rt.uri);
+      new_uri = this.rt.uri.search();
+      if (old_uri !== new_uri) {
+        return this.rt.set_uri_without_event(this.rt.uri);
+      }
     };
 
     TablePager.prototype.notify = function() {
@@ -57,14 +61,12 @@ define(["a/Pi"], function(aPi) {
 
     TablePager.prototype.forward = function(n) {
       this.page = this.page + n >= this.page_count ? this.page_count - 1 : this.page + n;
-      this.set_page_to_uri();
-      return this.notify();
+      return this.set_page_to_uri();
     };
 
     TablePager.prototype.backward = function(n) {
       this.page = this.page - n < 0 ? 0 : this.page - n;
-      this.set_page_to_uri();
-      return this.notify();
+      return this.set_page_to_uri();
     };
 
     TablePager.prototype.nav = function(name) {
