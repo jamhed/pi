@@ -1,10 +1,12 @@
-Processing instructions.
+# Processing instructions.
 
-# How to install
+Sampler for https://github.com/jamhed/pi-redux-js
+
+## How to install
 
 Please read INSTALL.
 
-# How to run
+## How to run
 
 ./dev-run
 
