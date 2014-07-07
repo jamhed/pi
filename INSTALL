@@ -9,7 +9,7 @@ cpanm Starman
 npm -g install coffee-script
 npm -g install bower
 
-bower install
+bower install pi
 
 # System
 apt-get install inotify-tools
